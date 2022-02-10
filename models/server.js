@@ -1,24 +1,30 @@
 const express = require('express')
 const morgan = require('morgan');
-const cors = require('cors')
+const cors = require('cors');
 require('dotenv').config();
+
+const { dbConnection } = require('../database/config.db');
 
 
 class Server{
-    
-    
+        
     constructor(){
         this.app = express();
         this.port = process.env.PORT || 8080
         this.usuariosPath = '/api/usuarios'
-        
+    
+        //Conectar a dbConnection
+        this.connectDb();
         //Middlewares
         this.middlewares();
-
         //Routes
         this.routes();
 
     };
+
+    async connectDb() {
+        await dbConnection();
+    }
 
     middlewares(){
         //Permite que se puedan hacer peticiones desde cualquier origen
@@ -41,7 +47,7 @@ class Server{
 
     listen() {
         this.app.listen(this.port, () => {
-            console.log('Server is up on port', this.port);
+            console.log(`Servidor corriendo en http://localhost:${this.port}/`);
         });
     };
 };
