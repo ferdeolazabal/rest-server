@@ -13,12 +13,12 @@ const dbConnection = async () => {
             // useFindAndModify: false,
         });
 
-        console.log('DB connection successful'.bgGreen.black);
+        console.log('DB connection successful');
 
         
     } catch (error) {
         console.log(error);
-        throw new Error('DB connection error!'.bgRed.black);
+        throw new Error('DB connection error!');
     }
 
 
