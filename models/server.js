@@ -1,7 +1,7 @@
 const express = require('express')
 const morgan = require('morgan');
 const cors = require('cors');
-require('dotenv').config();
+
 
 const { dbConnection } = require('../database/config.db');
 
@@ -10,8 +10,8 @@ class Server{
         
     constructor(){
         this.app = express();
-        this.port = process.env.PORT || 8080
-        this.usuariosPath = '/api/usuarios'
+        this.port = process.env.PORT;
+        this.usuariosPath = '/api/usuarios';
     
         //Conectar a dbConnection
         this.connectDb();
