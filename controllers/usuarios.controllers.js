@@ -41,7 +41,7 @@ const usuariosPost = async (req = request, res = response) => {
         usuario.password = bcrypt.hashSync(password, salt);
         // guardar usuario
         await usuario.save();
-        res.json({ usuario, ok: true, message: 'Usuario creado' });
+        res.json({ ok: true, message: 'Usuario creado', usuario });
 
     } catch (error) {
         console.log(error);
@@ -88,18 +88,23 @@ const usuariosPut = async (req = request, res = response) => {
 const usuariosDelete = async (req = request, res = response) => {
 
     const { id } = req.params;
+    
+    // const usuario = await Usuario.findByIdAndDelete(id)// borrar fisicamente de la DB
 
-    const uid  = req.uid
-
-    // borrar fisicamente de la DB
-    // const usuario = await Usuario.findByIdAndDelete( id )
-
+    const validarUsuarioEstaActivo = await Usuario.findById(id);
+    if (validarUsuarioEstaActivo.estado === false) {
+        return res.status(400).json({
+            ok: false,
+            message: 'El usuario no existe o esta desactivado'
+        });
+    }
+        
     const usuario = await Usuario.findByIdAndUpdate( id, { estado: false }, { new: true } );
 
     res.json({
         ok: true,
         message: 'Usuario eliminado',
-        usuario, uid
+        usuario
     });
 };
 
@@ -108,8 +113,6 @@ const usuariosPatch = (req = request, res = response) => {
         message: 'Patch API - Controlador'
     });
 };
-
-
 
 
 module.exports = {
