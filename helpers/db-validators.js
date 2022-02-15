@@ -1,5 +1,9 @@
-const Role = require('../models/role');
-const Usuario = require('../models/usuario');
+const { Categoria,
+        Usuario,
+        Role,
+        } = require('../models');
+// const Role = require('../models/role');
+// const Usuario = require('../models/usuario');
 
 const validateRol = async( rol = '' ) => {
     const validateRol = await Role.findOne({ rol });
@@ -23,8 +27,20 @@ const validateUserByID = async( id = '' ) => {
 
 };
 
+// middleware que verifique id por params que exista que se llame existe categoria, similar a validateUserByID
+
+const validateCategoriaById = async( id = '' ) => {
+    const validateCategoria = await Categoria.findById(id);
+    if ( !validateCategoria ) {
+        throw new Error(`La categoria con id '${id}' no está registrado en DB`);
+    }
+}
+
+
+
 module.exports = {
     validateRol,
     validateMail,
-    validateUserByID
+    validateUserByID,
+    validateCategoriaById
 };
