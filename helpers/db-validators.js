@@ -1,9 +1,8 @@
 const { Categoria,
         Usuario,
         Role,
-        } = require('../models');
-// const Role = require('../models/role');
-// const Usuario = require('../models/usuario');
+        Producto } = require('../models');
+
 
 const validateRol = async( rol = '' ) => {
     const validateRol = await Role.findOne({ rol });
@@ -36,11 +35,20 @@ const validateCategoriaById = async( id = '' ) => {
     }
 }
 
+// middleware que verifique por id si existe un producto, similar a validateUserByID
+
+const validateProductoById = async( id = '' ) => {
+    const validateProducto = await Producto.findById(id);
+    if ( !validateProducto ) {
+        throw new Error(`El producto con id '${id}' no está registrado en DB`);
+    }
+}
 
 
 module.exports = {
     validateRol,
     validateMail,
     validateUserByID,
-    validateCategoriaById
+    validateCategoriaById,
+    validateProductoById
 };

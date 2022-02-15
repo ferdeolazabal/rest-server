@@ -17,7 +17,7 @@ class Server{
             auth       : '/api/auth',
             categorias : '/api/categorias',
             usuarios   : '/api/usuarios',
-
+            productos  : '/api/productos',
         };
 
         //Conectar a dbConnection
@@ -49,7 +49,7 @@ class Server{
         this.app.use( this.paths.auth, require('../routes/auth.routes') );
         this.app.use( this.paths.usuarios,require('../routes/usuarios.routes') );
         this.app.use( this.paths.categorias, require('../routes/categorias.routes') );
-
+        this.app.use( this.paths.productos, require('../routes/productos.routes') );
     };
 
 
