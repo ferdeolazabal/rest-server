@@ -7,7 +7,7 @@ const coleccionesPermitidas = [
     'usuarios', 
     'categorias', 
     'productos', 
-    'roles'
+    // 'roles'
 ];
 
 
