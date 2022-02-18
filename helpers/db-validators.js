@@ -44,11 +44,23 @@ const validateProductoById = async( id = '' ) => {
     }
 }
 
+const coleccionesPermitidas = ( coleccion = '', colecciones = [] ) => {
+    
+    const existeColeccion = colecciones.includes(coleccion);
+
+    if ( !existeColeccion ) {
+        throw new Error(`La colección '${coleccion}' no está permitida || Permitidas: ${colecciones.join(', ')}`);
+    }
+
+    return true;
+};
+
 
 module.exports = {
     validateRol,
     validateMail,
     validateUserByID,
     validateCategoriaById,
-    validateProductoById
+    validateProductoById,
+    coleccionesPermitidas
 };
